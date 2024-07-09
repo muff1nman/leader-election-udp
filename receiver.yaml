@@ -1,0 +1,366 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: receiver
+  name: receiver
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: receiver
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app: receiver
+    spec:
+      containers:
+        - env:
+            - name: START_READY
+              value: "false"
+            - name: UDP_LISTEN_PORT
+              value: "1100"
+            - name: HEALTH_PORT
+              value: "8080"
+            - name: POD_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+            - name: RECEIVER_IDENTIFIER
+              value: $(POD_NAME)-$(UDP_LISTEN_PORT)
+          image: quay.io/muff1nman/udplistener
+          name: leader-election-udp-0
+          readinessProbe:
+            failureThreshold: 1
+            httpGet:
+              path: /readyz
+              port: 8080
+            initialDelaySeconds: 1
+            periodSeconds: 1
+            successThreshold: 2
+          resources:
+            limits:
+              cpu: 100m
+              memory: 100Mi
+          volumeMounts:
+            - mountPath: /var/run/udplisten
+              name: ready
+        - env:
+            - name: START_READY
+              value: "false"
+            - name: UDP_LISTEN_PORT
+              value: "1101"
+            - name: HEALTH_PORT
+              value: "8081"
+            - name: POD_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+            - name: RECEIVER_IDENTIFIER
+              value: $(POD_NAME)-$(UDP_LISTEN_PORT)
+          image: quay.io/muff1nman/udplistener
+          name: leader-election-udp-1
+          readinessProbe:
+            failureThreshold: 1
+            httpGet:
+              path: /readyz
+              port: 8081
+            initialDelaySeconds: 1
+            periodSeconds: 1
+            successThreshold: 2
+          resources:
+            limits:
+              cpu: 100m
+              memory: 100Mi
+          volumeMounts:
+            - mountPath: /var/run/udplisten
+              name: ready
+        - env:
+            - name: START_READY
+              value: "false"
+            - name: UDP_LISTEN_PORT
+              value: "1102"
+            - name: HEALTH_PORT
+              value: "8082"
+            - name: POD_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+            - name: RECEIVER_IDENTIFIER
+              value: $(POD_NAME)-$(UDP_LISTEN_PORT)
+          image: quay.io/muff1nman/udplistener
+          name: leader-election-udp-2
+          readinessProbe:
+            failureThreshold: 1
+            httpGet:
+              path: /readyz
+              port: 8082
+            initialDelaySeconds: 1
+            periodSeconds: 1
+            successThreshold: 2
+          resources:
+            limits:
+              cpu: 100m
+              memory: 100Mi
+          volumeMounts:
+            - mountPath: /var/run/udplisten
+              name: ready
+        - env:
+            - name: START_READY
+              value: "false"
+            - name: UDP_LISTEN_PORT
+              value: "1103"
+            - name: HEALTH_PORT
+              value: "8083"
+            - name: POD_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+            - name: RECEIVER_IDENTIFIER
+              value: $(POD_NAME)-$(UDP_LISTEN_PORT)
+          image: quay.io/muff1nman/udplistener
+          name: leader-election-udp-3
+          readinessProbe:
+            failureThreshold: 1
+            httpGet:
+              path: /readyz
+              port: 8083
+            initialDelaySeconds: 1
+            periodSeconds: 1
+            successThreshold: 2
+          resources:
+            limits:
+              cpu: 100m
+              memory: 100Mi
+          volumeMounts:
+            - mountPath: /var/run/udplisten
+              name: ready
+        - env:
+            - name: START_READY
+              value: "false"
+            - name: UDP_LISTEN_PORT
+              value: "1104"
+            - name: HEALTH_PORT
+              value: "8084"
+            - name: POD_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+            - name: RECEIVER_IDENTIFIER
+              value: $(POD_NAME)-$(UDP_LISTEN_PORT)
+          image: quay.io/muff1nman/udplistener
+          name: leader-election-udp-4
+          readinessProbe:
+            failureThreshold: 1
+            httpGet:
+              path: /readyz
+              port: 8084
+            initialDelaySeconds: 1
+            periodSeconds: 1
+            successThreshold: 2
+          resources:
+            limits:
+              cpu: 100m
+              memory: 100Mi
+          volumeMounts:
+            - mountPath: /var/run/udplisten
+              name: ready
+        - env:
+            - name: START_READY
+              value: "false"
+            - name: UDP_LISTEN_PORT
+              value: "1105"
+            - name: HEALTH_PORT
+              value: "8085"
+            - name: POD_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+            - name: RECEIVER_IDENTIFIER
+              value: $(POD_NAME)-$(UDP_LISTEN_PORT)
+          image: quay.io/muff1nman/udplistener
+          name: leader-election-udp-5
+          readinessProbe:
+            failureThreshold: 1
+            httpGet:
+              path: /readyz
+              port: 8085
+            initialDelaySeconds: 1
+            periodSeconds: 1
+            successThreshold: 2
+          resources:
+            limits:
+              cpu: 100m
+              memory: 100Mi
+          volumeMounts:
+            - mountPath: /var/run/udplisten
+              name: ready
+        - env:
+            - name: START_READY
+              value: "false"
+            - name: UDP_LISTEN_PORT
+              value: "1106"
+            - name: HEALTH_PORT
+              value: "8086"
+            - name: POD_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+            - name: RECEIVER_IDENTIFIER
+              value: $(POD_NAME)-$(UDP_LISTEN_PORT)
+          image: quay.io/muff1nman/udplistener
+          name: leader-election-udp-6
+          readinessProbe:
+            failureThreshold: 1
+            httpGet:
+              path: /readyz
+              port: 8086
+            initialDelaySeconds: 1
+            periodSeconds: 1
+            successThreshold: 2
+          resources:
+            limits:
+              cpu: 100m
+              memory: 100Mi
+          volumeMounts:
+            - mountPath: /var/run/udplisten
+              name: ready
+        - env:
+            - name: START_READY
+              value: "false"
+            - name: UDP_LISTEN_PORT
+              value: "1107"
+            - name: HEALTH_PORT
+              value: "8087"
+            - name: POD_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+            - name: RECEIVER_IDENTIFIER
+              value: $(POD_NAME)-$(UDP_LISTEN_PORT)
+          image: quay.io/muff1nman/udplistener
+          name: leader-election-udp-7
+          readinessProbe:
+            failureThreshold: 1
+            httpGet:
+              path: /readyz
+              port: 8087
+            initialDelaySeconds: 1
+            periodSeconds: 1
+            successThreshold: 2
+          resources:
+            limits:
+              cpu: 100m
+              memory: 100Mi
+          volumeMounts:
+            - mountPath: /var/run/udplisten
+              name: ready
+        - env:
+            - name: START_READY
+              value: "false"
+            - name: UDP_LISTEN_PORT
+              value: "1108"
+            - name: HEALTH_PORT
+              value: "8088"
+            - name: POD_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+            - name: RECEIVER_IDENTIFIER
+              value: $(POD_NAME)-$(UDP_LISTEN_PORT)
+          image: quay.io/muff1nman/udplistener
+          name: leader-election-udp-8
+          readinessProbe:
+            failureThreshold: 1
+            httpGet:
+              path: /readyz
+              port: 8088
+            initialDelaySeconds: 1
+            periodSeconds: 1
+            successThreshold: 2
+          resources:
+            limits:
+              cpu: 100m
+              memory: 100Mi
+          volumeMounts:
+            - mountPath: /var/run/udplisten
+              name: ready
+        - env:
+            - name: START_READY
+              value: "false"
+            - name: UDP_LISTEN_PORT
+              value: "1109"
+            - name: HEALTH_PORT
+              value: "8089"
+            - name: POD_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+            - name: RECEIVER_IDENTIFIER
+              value: $(POD_NAME)-$(UDP_LISTEN_PORT)
+          image: quay.io/muff1nman/udplistener
+          name: leader-election-udp-9
+          readinessProbe:
+            failureThreshold: 1
+            httpGet:
+              path: /readyz
+              port: 8089
+            initialDelaySeconds: 1
+            periodSeconds: 1
+            successThreshold: 2
+          resources:
+            limits:
+              cpu: 100m
+              memory: 100Mi
+          volumeMounts:
+            - mountPath: /var/run/udplisten
+              name: ready
+      securityContext:
+        fsGroup: 1000
+        runAsUser: 1000
+      volumes:
+        - emptyDir: {}
+          name: ready
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: receiver
+  name: receiver
+spec:
+  ports:
+    - name: receiver0
+      port: 1100
+      protocol: UDP
+    - name: receiver1
+      port: 1101
+      protocol: UDP
+    - name: receiver2
+      port: 1102
+      protocol: UDP
+    - name: receiver3
+      port: 1103
+      protocol: UDP
+    - name: receiver4
+      port: 1104
+      protocol: UDP
+    - name: receiver5
+      port: 1105
+      protocol: UDP
+    - name: receiver6
+      port: 1106
+      protocol: UDP
+    - name: receiver7
+      port: 1107
+      protocol: UDP
+    - name: receiver8
+      port: 1108
+      protocol: UDP
+    - name: receiver9
+      port: 1109
+      protocol: UDP
+  selector:
+    app: receiver
+  type: ClusterIP

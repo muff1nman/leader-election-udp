@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: sender
+  name: sender
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sender
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: sender
+    spec:
+      securityContext:
+        runAsUser: 1000
+      containers:
+      - image: quay.io/muff1nman/udplistener
+        name: leader-election-udp
+        command:
+          - /bin/bash
+          - -c
+          - |
+            #!/usr/bin/env bash
+            while true
+            do
+              for i in {0..9}
+              do
+                sleep 1
+                MESSAGE="hello : $(date -uIs)"
+                echo "sending $MESSAGE"
+                nc -p 14511 -w1 -W1 -u receiver 110${i} <<< "$MESSAGE"
+              done
+            done
+        resources:
+          limits:
+            cpu: 100m
+            memory: 100Mi
